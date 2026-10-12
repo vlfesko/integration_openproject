@@ -124,7 +124,7 @@ class DirectUploadControllerTest extends TestCase {
 		$userFolderMock = $this->getFolderMock();
 		$userFolderMock->method('getById')->willReturn($nodeMock);
 		$directUploadController = $this->createDirectUploadController(
-			$userFolderMock, 101
+			folderMock: $userFolderMock, uploadedFileSize: 101,
 		);
 		$result = $directUploadController->directUpload(
 			self::TOKEN,
@@ -246,7 +246,7 @@ class DirectUploadControllerTest extends TestCase {
 		$userFolderMock = $this->getFolderMock();
 		$userFolderMock->method('getById')->willReturn($nodeMock);
 		$directUploadController = $this->createDirectUploadController(
-			$userFolderMock, 0, $tmpFileName);
+			folderMock: $userFolderMock, uploadedFileSize: 0, uploadedFileTmpName:  $tmpFileName);
 		$result = $directUploadController->directUpload(
 			self::TOKEN,
 		);
@@ -306,7 +306,7 @@ class DirectUploadControllerTest extends TestCase {
 		string $uploadedFileTmpName = '/tmp/andjashd',
 		int $uploadedFileError = 0,
 		string $contentLength = '100',
-		bool $noUploadedFile = false
+		bool $noUploadedFile = false,
 	): DirectUploadController {
 		$storageMock = $this->getMockBuilder('\OCP\Files\IRootFolder')->getMock();
 		$storageMock->method('getUserFolder')->willReturn($folderMock);
